@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Calendar</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
     <link rel="icon" href="../static/ava13c3ac53812cde1b88.png">
 </head>
@@ -13,10 +13,24 @@
             <h1 class="title">Calendar</h1>
             <div class="month">
                 <strong class="prev"><</strong>
-                <p class="date">November 2025</p>
+                <p class="date"></p>
                 <strong class="next">></strong>
+            </div>
+            <div class="week">
+                <div class="dayName">Sun</div>
+                <div class="dayName">Mon</div>
+                <div class="dayName">Tue</div>
+                <div class="dayName">Wed</div>
+                <div class="dayName">Thu</div>
+                <div class="dayName">Fri</div>
+                <div class="dayName">Sat</div>
+            </div>
+            <div class="days">
             </div>
         </div>
     </div>
+
+
+    <script src="../static/script.js"></script>
 </body>
 </html>
