@@ -9,6 +9,8 @@ let activeDay;
 let month = today.getMonth();
 let year = today.getFullYear()
 
+
+const calbtn = document.querySelector('.calbtn');
 right = document.querySelector('.rightPart');
 rightOn = false
 
@@ -105,3 +107,18 @@ prev.addEventListener('click', ()=> {
 next.addEventListener('click', ()=> {
     nextMonth();
 })
+
+calbtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (!rightOn) {
+    right.classList.add('open');
+    rightOn = true;
+  } else {
+    right.classList.remove('open');
+    rightOn = false;
+  }
+});
+
+right.addEventListener('click', (e) => {
+  e.stopPropagation();
+});
