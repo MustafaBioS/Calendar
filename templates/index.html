@@ -48,9 +48,17 @@
         <button class="viewBtn btn">View Calendars</button>
     </div>
 
+
+
     <div class="deleteCon">
-        <div class="deleteModal"></div>
+        <div class="modBG"></div>
+        <div class="deleteModal">
+            <h1 class="delTitle">Are You Sure?</h1>
+            <button class="yes btn2">Yes</button>
+            <button class="cancel btn2">Cancel</button>
+        </div>
     </div>
+
 
     {% if current_user.is_authenticated %}
 
@@ -63,13 +71,27 @@
         const logModal = document.querySelector('.logModal');
         const logout = document.querySelector('.logout');
         const deleteBtn = document.querySelector('.delete');
+        const yes = document.querySelector('.yes');
+        const cancel = document.querySelector('.cancel');
+        const delModal = document.querySelector('.deleteCon');
+        const delBox = document.querySelector('.deleteModal');
+
+        cancel.addEventListener('click', ()=> {
+            delModal.style.display = 'none';
+        })
+
+        yes.addEventListener('click', ()=> {
+            window.location.href = '{{ url_for("delete") }}';
+        });
 
         logout.addEventListener('click', ()=> {
-            window.location.href = '{{ url_for("logout") }}'
+            window.location.href = '{{ url_for("logout") }}';
         })
 
         deleteBtn.addEventListener('click', ()=> {
-            window.location.href = '{{ url_for("delete") }}'
+            delModal.style.display = 'flex';
+            logModal.style.display = 'none';
+            document.body.style.overflow = 'hidden';
         })
 
 
@@ -79,7 +101,6 @@
             } else {
                 logModal.style.display = 'none';
             }
-
         }) 
 
         create.addEventListener('click', ()=> {
@@ -87,7 +108,7 @@
         });
 
         view.addEventListener('click', ()=> {
-            viewModal.style.display = 'flex'
+            viewModal.style.display = 'flex';
         })
 
         document.addEventListener('click', (event) => {
@@ -101,6 +122,10 @@
 
             if (logModal.style.display === 'flex' && !logModal.contains(event.target) && !profile.contains(event.target)) {
                 logModal.style.display = 'none';
+            }
+
+            if (delModal.style.display === 'flex' && !delBox.contains(event.target) && !deleteBtn.contains(event.target)) {
+                delModal.style.display = 'none';
             }
         });
 
