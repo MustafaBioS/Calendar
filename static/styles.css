@@ -415,3 +415,86 @@ html, body {
     transform: translateY(-6px);
     cursor: pointer;
 }
+
+.viewCon {
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    transform: translateY(125px);
+    z-index: 50;
+}
+
+.view {
+    position: absolute;
+    height: 550px;
+    width: 800px;
+    background-color: white;
+    border-radius: 20px;
+    z-index: 50;
+}
+
+.viewTitle {
+    font-size: 50px;
+    text-align: center;
+}
+
+.pos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 55%;
+    width: 100%;
+}
+
+.cals {
+    font-size: 25px;
+    opacity: 0.7;
+}
+
+.logModal {
+    display: none;
+    position: absolute;
+    height: 100px;
+    width: 250px;
+    margin-right: 100px;
+    margin-top: 30px;
+    background-color: white;
+    border-radius: 20px;
+    z-index: 50;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.accBtn {
+    width: 100%;
+    border: 1px solid black;
+    height: 50px;
+    background-color: white;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.logout {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.logout:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+.delete {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.delete:hover {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    cursor: pointer;
+}

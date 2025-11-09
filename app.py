@@ -101,6 +101,9 @@ def login():
 
         if loguser and logpass:
             user = Users.query.filter_by(username=loguser).first()
+            if user is None:
+                flash("User Not Found", 'fail')
+                return redirect(url_for('login'))
             if bcrypt.check_password_hash(user.password, logpass):
                 login_user(user)
                 flash("Logged In Successfully", 'success')
@@ -116,6 +119,16 @@ def logout():
         flash("Logged Out Successfully", 'success')
         return redirect(url_for('home'))
     else:
+        return redirect(url_for('home'))
+
+@app.route('/delete')
+def delete():
+    user = Users.query.filter_by(username=current_user.username).first()
+    if user:
+        logout_user()
+        db.session.delete(user)
+        db.session.commit()
+        flash("Account Deleted Successfully", 'success')
         return redirect(url_for('home'))
 
 # Run

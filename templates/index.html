@@ -9,7 +9,16 @@
 </head>
 <body>
     <div class="topRight">
-        <img src="../static/icon.png" alt="Profile Icon" class="profile">
+        <div class="profCon">
+            <img src="../static/icon.png" alt="Profile Icon" class="profile">
+        </div>
+
+        <div class="logModal">
+            <button class="logout accBtn">Logout</button>
+            <button class="delete accBtn">Delete Account</button>
+            <div class="modArrow"></div>
+        </div>
+
     </div>
 
     <div class="createCon">
@@ -23,6 +32,15 @@
         </div>
     </div>
 
+    <div class="viewCon">
+        <div class="view">
+            <h1 class="viewTitle">Calendars</h1>
+            <div class="pos">
+                <p class="cals">No Calendars</p>
+            </div>
+
+        </div>
+    </div>
 
     <div class="allMain">
         <div class="titleMain">Calendar</div>
@@ -30,32 +48,59 @@
         <button class="viewBtn btn">View Calendars</button>
     </div>
 
-
-    <script>
-        const profile = document.querySelector('.profile');
-
-        profile.addEventListener('click', ()=> {
-            window.location.href = "{{ url_for('login') }}"
-        })
-    </script>
+    <div class="deleteCon">
+        <div class="deleteModal"></div>
+    </div>
 
     {% if current_user.is_authenticated %}
 
     <script>
         const create = document.querySelector('.createBtn');
         const createModal = document.querySelector('.createCon');
+        const view = document.querySelector('.viewBtn');
+        const viewModal = document.querySelector('.viewCon');
+        const profile = document.querySelector('.profile');
+        const logModal = document.querySelector('.logModal');
+        const logout = document.querySelector('.logout');
+        const deleteBtn = document.querySelector('.delete');
 
-        create.addEventListener('click', (event) => {
+        logout.addEventListener('click', ()=> {
+            window.location.href = '{{ url_for("logout") }}'
+        })
+
+        deleteBtn.addEventListener('click', ()=> {
+            window.location.href = '{{ url_for("delete") }}'
+        })
+
+
+        profile.addEventListener('click', ()=> {
+            if (logModal.style.display === 'none') {
+                logModal.style.display = 'flex';
+            } else {
+                logModal.style.display = 'none';
+            }
+
+        }) 
+
+        create.addEventListener('click', ()=> {
             createModal.style.display = 'flex';
         });
 
+        view.addEventListener('click', ()=> {
+            viewModal.style.display = 'flex'
+        })
+
         document.addEventListener('click', (event) => {
-            if (
-                createModal.style.display === 'flex' &&
-                !createModal.contains(event.target) &&
-                !create.contains(event.target)
-            ) {
-                create.style.display = 'flex';
+            if (createModal.style.display === 'flex' && !createModal.contains(event.target) && !create.contains(event.target)) {
+                createModal.style.display = 'none';
+            }
+            
+            if (viewModal.style.display === 'flex' && !viewModal.contains(event.target) && !view.contains(event.target)) {
+                viewModal.style.display = 'none';
+            }
+
+            if (logModal.style.display === 'flex' && !logModal.contains(event.target) && !profile.contains(event.target)) {
+                logModal.style.display = 'none';
             }
         });
 
@@ -64,10 +109,21 @@
     {% else %}
     <script>
         const create2 = document.querySelector('.createBtn');
+        const view2 = document.querySelector('.viewBtn');
+        const profile2 = document.querySelector('.profile');
+
+        profile2.addEventListener('click', ()=> {
+            window.location.href = "{{ url_for('login') }}"
+        })
 
         create2.addEventListener('click', ()=> {
-            window.location.href = '{{ url_for("login") }}'
+            window.location.href = '{{ url_for("login") }}';
         })
+
+        view2.addEventListener('click', ()=> {
+            window.location.href = '{{ url_for("login") }}';
+        })
+
     </script>
     
     {% endif %}
