@@ -8,15 +8,27 @@
     <link rel="icon" href="../static/ava13c3ac53812cde1b88.png">
 </head>
 <body>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
     <div class="main">
         <div class="bg">
             <div class="left">
                 <h1 class="logtitle">Login</h1>
-                <form class="logform frm">
+                <form class="logform frm" action="{{ url_for('login') }}" method="post">
                     <label class="loglb lb">Username</label>
                     <input type="text" class="loginp inp" name="loguser" minlength="8" maxlength="24" placeholder="Username" required>
                     <label class="loglb lb">Password</label>
                     <input type="password" class="loginp inp" name="logpass" minlength="8" maxlength="24" placeholder="••••••••••" required>
+                    <input type="submit" class="logSub sub" value="Login">
                 </form>
 
             </div>
@@ -27,13 +39,14 @@
 
             <div class="right">
                 <h1 class="signtitle">Sign Up</h1>
-                <form class="signform frm">
+                <form class="signform frm" action="{{ url_for('login') }}" method="post">
                     <label class="lb">Username</label>
                     <input type="text" class="signinp inp" name="signuser" minlength="8" maxlength="24" placeholder="Username" required>
                     <label class="lb">Password</label>
                     <input type="password" class="signinp inp" name="signpass" minlength="8" maxlength="24" placeholder="••••••••••" required>
                     <label class="lb">Confirm Password</label>
                     <input type="password" class="signinp inp" name="signcon" minlength="8" maxlength="24" placeholder="••••••••••" required>
+                    <input type="submit" class="signSub sub" value="Create Account">
                 </form>
 
             </div>

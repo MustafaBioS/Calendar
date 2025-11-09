@@ -1,8 +1,8 @@
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager, UserMixin, current_user
+from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user
 from dotenv import load_dotenv
 import os
 
@@ -47,8 +47,48 @@ def login():
     if request.method == 'GET':
         return render_template('login.html')
     if request.method == 'POST':
-        pass
+        loguser = request.form.get("loguser")
+        logpass = request.form.get("logpass")
 
+        signuser = request.form.get("signuser")
+        signpass = request.form.get("signpass")
+        signcon = request.form.get("signcon")
+
+        if signuser and signpass:
+            if signpass == signcon:
+                hashed_pw = bcrypt.generate_password_hash(signpass).decode("utf-8")
+                new_user = Users(username=signuser, password=hashed_pw)
+                try:
+                    db.session.add(new_user)
+                    db.session.commit()
+                    login_user(new_user)
+                    flash("Account Created Successfully", 'success')
+                    return redirect(url_for('home'))
+                except Exception as e:
+                    db.session.rollback()
+                    flash("Username Already Taken", "fail")
+                    return redirect(url_for('login'))
+            else:
+                flash("Passwords Do Not Match", 'fail')
+
+        if loguser and logpass:
+            user = Users.query.filter_by(username=loguser).first()
+            if bcrypt.check_password_hash(user.password, logpass):
+                login_user(user)
+                flash("Logged In Successfully", 'success')
+                return redirect(url_for("home"))
+            else:
+                flash("Incorrect Username or Password", 'fail')
+                return redirect(url_for("login"))
+            
+@app.route("/logout")
+def logout():
+    if current_user.is_authenticated:
+        logout_user()
+        flash("Logged Out Successfully", 'success')
+        return redirect(url_for('home'))
+    else:
+        return redirect(url_for('home'))
 
 # Run
 

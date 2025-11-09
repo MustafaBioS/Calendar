@@ -122,6 +122,7 @@ html, body {
     align-items: center;
     justify-content: center;
     flex-direction: row;
+    box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.7);
 }
 
 .right {
@@ -200,3 +201,71 @@ html, body {
 .lb {
     font-size: 18px;
 }
+
+.logSub {
+    margin-left: 215px;
+
+}
+
+.signSub {
+    margin-left: 45px;
+}
+
+.sub {
+    height: 40px;
+    width: 150px;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 5px;
+    outline: none;
+    border: 1px solid black;
+    background-color: white;
+    font-size: 18px;
+    transition: all 0.4s ease;
+}
+
+.sub:hover {
+    background-color: black;
+    color: white;
+    transform: translateY(-6px);
+    box-shadow: 0px 2px 30px rgba(255, 255, 255, 0.7);
+}
+
+.rightPart {
+    display: none;
+    opacity: 0;
+    transform: translateX(20px);
+    height: 100%;
+    width: 50%;
+    border-radius: 25px;
+    margin-left: 50px;
+    background-color:rgb(1, 7, 25);
+    color: white;
+    align-items: center;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.rightPart.show {
+  display: flex;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.rev {
+    margin-top: 75px;
+}
+
+.eventsCon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 65%;
+    width: 100%;
+}
+
+.events {
+    font-size: 30px;
+    opacity: 0.7;
+}
+

@@ -8,6 +8,18 @@
     <link rel="icon" href="../static/ava13c3ac53812cde1b88.png">
 </head>
 <body>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
     <div class="all">
         <div class="calendar">
             <h1 class="title">Calendar</h1>
@@ -27,8 +39,21 @@
             </div>
             <div class="days">
             </div>
+
+            
+
+        </div>
+
+
+        <div class="rightPart">
+            <h1 class="title rev">Events</h1>
+            <div class="eventsCon">
+                <p class="events">No Events</p>
+            </div>
+
         </div>
     </div>
+
 
 
     <script src="../static/script.js"></script>

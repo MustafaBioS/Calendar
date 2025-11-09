@@ -9,6 +9,10 @@ let activeDay;
 let month = today.getMonth();
 let year = today.getFullYear()
 
+right = document.querySelector('.rightPart');
+rightOn = false
+
+
 const months = [
     "January",
     "February",
