@@ -1,7 +1,7 @@
 const calendar = document.querySelector(".calendar"),
     date = document.querySelector('.date'),
     daysCon = document.querySelector('.days'),
-    prev = document.querySelector('.prev');
+    prev = document.querySelector('.prev'),
     next = document.querySelector('.next');
 
 let today = new Date();
@@ -42,8 +42,8 @@ function Calendar() {
         }
 
         for (let i = 1; i <= lastDate; i++) {
-            if (i == new Date().getDate() && year == new Date().getFullYear && month == new Date().getMonth) {
-                days += `<div class="day today">${i}</div>`;
+            if (i == new Date().getDate() && year == new Date().getFullYear() && month == new Date().getMonth()) {
+                days += `<div class="day active today">${i}</div>`;
             }
             
             else {
@@ -54,7 +54,23 @@ function Calendar() {
             for (let j = 1; j <= nextDays; j++){
                 days += `<div class="day next-date">${j}</div>`;
             }
+
         daysCon.innerHTML = days;
+
+        const prevDate = document.querySelectorAll('.prev-date');
+        const nextDate = document.querySelectorAll('.next-date');
+
+        prevDate.forEach(date => {
+            date.addEventListener('click', ()=> {
+                prevMonth();
+            });
+        });
+
+        nextDate.forEach(date => {
+            date.addEventListener('click', ()=> {
+                nextMonth();
+            });
+        });
 }
 
 Calendar();
@@ -76,6 +92,7 @@ function nextMonth() {
     }
     Calendar();
 }
+
 
 prev.addEventListener('click', ()=> {
     prevMonth();

@@ -14,22 +14,11 @@ html, body {
 }
 
 .calendar {
-    width: 40%;
+    width: 60%;
     padding: 20px;
     background-color: white;
     border-radius: 20px;
-}
-
-
-.calendar::before
-.calendar::after {
-    content: "";
-    position: absolute;
-    
-    background-color: red;
-    margin-left: 500px;
-    height: 1000px;
-    width: 1000px;
+    box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.7);
 }
 
 .title {
@@ -79,6 +68,7 @@ html, body {
 }
 
 .date {
+    user-select: none;
     font-weight: bolder;
 }
 
@@ -95,7 +85,7 @@ html, body {
 
 .day {
     width: 11.15%;
-    font-size: 20px;
+    font-size: 25px;
     margin-right: 20px;
     height: 90px;
     display: flex;
@@ -103,4 +93,110 @@ html, body {
     justify-content: center;
     cursor: pointer;
     border: 1px solid black;
+}
+
+.prev-date,
+.next-date {
+    opacity: 0.3;
+}
+
+.active {
+    font-size: 40px;
+    color: rgb(20, 20, 94);
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.bg {
+    width: 1200px;
+    height: 800px;
+    background-color: white;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.right {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.center {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.line {
+    height: 100%;
+    width: 3px;
+    background-color: black;
+}
+
+.logtitle {
+    text-align: center;
+    font-size: 60px;
+    margin-left: 175px;
+}
+
+.signtitle {
+    text-align: center;
+    font-size: 60px;
+    margin-right: 175px;
+    width: 230px;
+}
+
+.inp {
+    height: 30px;
+    width: 225px;
+    border-radius: 12px;
+    outline: none;
+    border: 1px solid black;
+    padding-left: 15px;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    font-size: 18px;
+}
+
+.frm  {
+    margin-top: 50px;
+}
+
+.loginp {
+    margin-left: 175px;
+}
+
+.signinp {
+    margin-right: 175px;
+}
+
+.loglb {
+    margin-left: 175px;
+}
+
+.lb {
+    font-size: 18px;
 }

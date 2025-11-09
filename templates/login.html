@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" href="../static/ava13c3ac53812cde1b88.png">
+</head>
+<body>
+    <div class="main">
+        <div class="bg">
+            <div class="left">
+                <h1 class="logtitle">Login</h1>
+                <form class="logform frm">
+                    <label class="loglb lb">Username</label>
+                    <input type="text" class="loginp inp" name="loguser" minlength="8" maxlength="24" placeholder="Username" required>
+                    <label class="loglb lb">Password</label>
+                    <input type="password" class="loginp inp" name="logpass" minlength="8" maxlength="24" placeholder="••••••••••" required>
+                </form>
+
+            </div>
+
+            <div class="center">
+                <div class="line"></div>
+            </div>
+
+            <div class="right">
+                <h1 class="signtitle">Sign Up</h1>
+                <form class="signform frm">
+                    <label class="lb">Username</label>
+                    <input type="text" class="signinp inp" name="signuser" minlength="8" maxlength="24" placeholder="Username" required>
+                    <label class="lb">Password</label>
+                    <input type="password" class="signinp inp" name="signpass" minlength="8" maxlength="24" placeholder="••••••••••" required>
+                    <label class="lb">Confirm Password</label>
+                    <input type="password" class="signinp inp" name="signcon" minlength="8" maxlength="24" placeholder="••••••••••" required>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
