@@ -3,65 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css' )}}">
     <link rel="icon" href="../static/ava13c3ac53812cde1b88.png">
 </head>
 <body>
+    <div class="topRight">
+        <img src="../static/icon.png" alt="Profile Icon" class="profile">
+    </div>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-        <div class="alert alert-{{ category }}">
-            {{ message }}
-        </div>
-        {% endfor %}
-    {% endif %}
-    {% endwith %}
-
-
-    <div class="all">
-        <div class="calendar">
-
-            <h1 class="title caltitle">Calendar</h1>
-
-            <div class="month">
-                <div class="leftbtn">
-                    <img src="../static/ava13c3ac53812cde1b88.png" alt="Events Tab" class="calbtn"></img>
-                </div>
-
-                <strong class="prev"><</strong>
-                <p class="date"></p>
-                <strong class="next">></strong>
-            </div>
-            <div class="week">
-                <div class="dayName">Sun</div>
-                <div class="dayName">Mon</div>
-                <div class="dayName">Tue</div>
-                <div class="dayName">Wed</div>
-                <div class="dayName">Thu</div>
-                <div class="dayName">Fri</div>
-                <div class="dayName">Sat</div>
-            </div>
-            <div class="days">
-            </div>
-
-            
-
-        </div>
-
-
-        <div class="rightPart">
-            <h1 class="title rev">Events</h1>
-            <div class="eventsCon">
-                <p class="events">No Events</p>
-            </div>
-
+    <div class="createCon">
+        <div class="create">
+            <h1 class="createTitle">Create Calendar</h1>
+            <form class="calendarForm" action="{{ url_for('home')}}" method="post">
+                <label class="cnlb">Calendar Name</label>
+                <input type="text" class="cn" name="cn" maxlength="46" required>
+                <input type="submit" class="calSub" value="Create">
+            </form>
         </div>
     </div>
 
 
+    <div class="allMain">
+        <div class="titleMain">Calendar</div>
+        <button class="createBtn btn">Create Calendar</button>
+        <button class="viewBtn btn">View Calendars</button>
+    </div>
 
-    <script src="../static/script.js"></script>
+
+    <script>
+        const profile = document.querySelector('.profile');
+
+        profile.addEventListener('click', ()=> {
+            window.location.href = "{{ url_for('login') }}"
+        })
+    </script>
+
+    {% if current_user.is_authenticated %}
+
+    <script>
+        const create = document.querySelector('.createBtn');
+        const createModal = document.querySelector('.createCon');
+
+        create.addEventListener('click', (event) => {
+            createModal.style.display = 'flex';
+        });
+
+        document.addEventListener('click', (event) => {
+            if (
+                createModal.style.display === 'flex' &&
+                !createModal.contains(event.target) &&
+                !create.contains(event.target)
+            ) {
+                create.style.display = 'flex';
+            }
+        });
+
+    </script>
+
+    {% else %}
+    <script>
+        const create2 = document.querySelector('.createBtn');
+
+        create2.addEventListener('click', ()=> {
+            window.location.href = '{{ url_for("login") }}'
+        })
+    </script>
+    
+    {% endif %}
 </body>
 </html>

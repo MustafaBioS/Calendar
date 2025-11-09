@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
+    <link rel="icon" href="../static/ava13c3ac53812cde1b88.png">
+</head>
+<body>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+    <div class="all">
+        <div class="calendar">
+
+            <h1 class="title caltitle">Calendar</h1>
+
+            <div class="month">
+                <div class="leftbtn">
+                    <img src="../static/ava13c3ac53812cde1b88.png" alt="Events Tab" class="calbtn"></img>
+                </div>
+
+                <strong class="prev"><</strong>
+                <p class="date"></p>
+                <strong class="next">></strong>
+            </div>
+            <div class="week">
+                <div class="dayName">Sun</div>
+                <div class="dayName">Mon</div>
+                <div class="dayName">Tue</div>
+                <div class="dayName">Wed</div>
+                <div class="dayName">Thu</div>
+                <div class="dayName">Fri</div>
+                <div class="dayName">Sat</div>
+            </div>
+            <div class="days">
+            </div>
+
+            
+
+        </div>
+
+
+        <div class="rightPart">
+            <h1 class="title rev">Events</h1>
+            <div class="eventsCon">
+                <p class="events">No Events</p>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script src="../static/script.js"></script>
+</body>
+</html>

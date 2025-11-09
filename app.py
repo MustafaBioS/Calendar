@@ -1,3 +1,4 @@
+import uuid
 from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -32,15 +33,42 @@ class Users(UserMixin, db.Model):
     username = db.Column(db.String(64), nullable=False ,unique=True)
     password = db.Column(db.String(128), nullable=False)
 
+class Calendar(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    public_id = db.Column(db.String(12), unique=True, nullable=False, default=lambda: uuid.uuid4().hex[:12])
+    name = db.Column(db.String(100))
+
+class Event(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    calendar_id = db.Column(db.Integer, db.ForeignKey('calendar.id'))
+    title = db.Column(db.String(100))
+    description = db.Column(db.Text)
+    date = db.Column(db.String(50))
+
+    calendar = db.relationship('Calendar', backref=db.backref('events', lazy=True))
+
 # Routes
 
 @login_manager.user_loader
 def load_user(user_id):
     return Users.query.get(int(user_id))
 
+@app.route("/calendar", methods=['GET', 'POST'])
+def calendar():
+    return render_template("index.html")
+
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template("index.html")
+    if request.method == 'GET':
+        return render_template('index.html')
+    
+    if request.method == 'POST':
+        name = request.form.get("cn")
+        new_calendar = Calendar(name=name)
+        db.session.add(new_calendar)
+        db.session.commit()
+        return redirect(url_for("view", public_id=new_calendar.public_id))
+
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
