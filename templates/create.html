@@ -8,6 +8,17 @@
     <link rel="icon" href="../static/ava13c3ac53812cde1b88.png">
 </head>
 <body>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
     <div class="all">
         <div class="bg">
             <h1 class="title">Add Event</h1>

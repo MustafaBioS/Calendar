@@ -12,7 +12,7 @@
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
         {% for category, message in messages %}
-        <div class="alert alert-{{ category }}">
+        <div class="flash {{ category }}">
             {{ message }}
         </div>
         {% endfor %}
@@ -57,22 +57,27 @@
                 <button class="createEvent" data-publicid="{{ calendar.public_id }}">Add Event</button>
             </div>
 
-            <div class="eventsCon">
+            
                 {% if events %}
-                    {% for event in events %}
-                        <strong>{{ event.title }}</strong> - {{ event.date }}<br>{{ event.description }}
+                    <div class="eventsCon">
+                        {% for event in events %}
+                            <span class="even"><strong>{{ event.title }}</strong> - {{ event.date }}<br><span class="desc">{{ event.description }}</span></span>
+                    
+
                     {% else %}
-                        <p class="events">No Events</p>
+                        <div class="eventsCon">
+                            <p class="events">No Events</p>
                     {% endfor %}
                 {% endif%}
-            </div>
-            <div class="centered">
+            
+
+            <div class="centerd">
                 <p>Shareable link: 
                     <a href="{{ request.url }}" class="link">{{ request.url }}</a>
                 </p>
             </div>
-
-
+            </div>
+            </div>
         </div>
     </div>
 

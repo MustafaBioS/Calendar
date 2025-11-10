@@ -32,11 +32,13 @@ class Users(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), nullable=False ,unique=True)
     password = db.Column(db.String(128), nullable=False)
+    calendars = db.relationship('Calendar', backref='user', lazy=True)
 
 class Calendar(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     public_id = db.Column(db.String(12), unique=True, nullable=False, default=lambda: uuid.uuid4().hex[:12])
     name = db.Column(db.String(100))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -80,11 +82,12 @@ def add(public_id):
 @app.route("/", methods=['GET', 'POST'])
 def home():
     if request.method == 'GET':
-        return render_template('index.html')
+        calendars = Calendar.query.filter_by(user_id=current_user.id).all()
+        return render_template('index.html', calendars=calendars)
     
     if request.method == 'POST':
         name = request.form.get("cn")
-        new_calendar = Calendar(name=name)
+        new_calendar = Calendar(name=name, user_id=current_user.id)
         db.session.add(new_calendar)
         db.session.commit()
         return redirect(url_for("calendar", public_id=new_calendar.public_id))

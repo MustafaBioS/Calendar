@@ -8,6 +8,17 @@
     <link rel="icon" href="../static/ava13c3ac53812cde1b88.png">
 </head>
 <body>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
     <div class="topRight">
         <div class="profCon">
             <img src="../static/icon.png" alt="Profile Icon" class="profile">
@@ -36,7 +47,14 @@
         <div class="view">
             <h1 class="viewTitle">Calendars</h1>
             <div class="pos">
-                <p class="cals">No Calendars</p>
+                {% if calendars %}
+                    {% for calendar in calendars %}
+                        <button class="savedcal" data-publicid="{{ calendar.public_id }}">{{ calendar.name }}</button>
+                    {% endfor %}
+                {% else %}
+                    <p class="cals">No Calendars</p>
+                {% endif %}
+
             </div>
 
         </div>
@@ -75,6 +93,13 @@
         const cancel = document.querySelector('.cancel');
         const delModal = document.querySelector('.deleteCon');
         const delBox = document.querySelector('.deleteModal');
+        const savedcal = document.querySelector('.savedcal');
+
+
+        savedcal.addEventListener('click', ()=> {
+            const public_id = savedcal.dataset.publicid;
+            window.location.href = `/calendar/${public_id}`;
+        })
 
         cancel.addEventListener('click', ()=> {
             delModal.style.display = 'none';
