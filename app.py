@@ -53,9 +53,18 @@ class Event(db.Model):
 def load_user(user_id):
     return Users.query.get(int(user_id))
 
-@app.route("/calendar", methods=['GET', 'POST'])
-def calendar():
-    return render_template("index.html")
+@app.route("/calendar/<public_id>", methods=['GET', 'POST'])
+def calendar(public_id):
+    calendar = Calendar.query.filter_by(public_id=public_id).first_or_404()
+    events = Event.query.filter_by(calendar_id=calendar.id).all()
+    return render_template("calendar.html", calendar=calendar, events=events)
+
+@app.route('/add/event', methods=['GET', 'POST'])
+def add():
+    if request.method == 'GET':
+        return render_template('create.html')
+    if request.method == 'POST':
+        pass
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -67,7 +76,7 @@ def home():
         new_calendar = Calendar(name=name)
         db.session.add(new_calendar)
         db.session.commit()
-        return redirect(url_for("view", public_id=new_calendar.public_id))
+        return redirect(url_for("calendar", public_id=new_calendar.public_id))
 
 
 @app.route("/login", methods=['GET', 'POST'])

@@ -11,8 +11,10 @@ let year = today.getFullYear()
 
 
 const calbtn = document.querySelector('.calbtn');
-right = document.querySelector('.rightPart');
-rightOn = false
+let right = document.querySelector('.rightPart');
+let rightOn = false
+const addEvent = document.querySelector('.createEvent')
+
 
 
 const months = [
@@ -122,3 +124,14 @@ calbtn.addEventListener('click', (e) => {
 right.addEventListener('click', (e) => {
   e.stopPropagation();
 });
+
+document.addEventListener('click', (e)=> {
+    if (rightOn === true && !right.contains(e.target) && !calbtn.contains(e.target)) {
+        right.classList.remove('open');
+        rightOn = false;
+    }
+})
+
+addEvent.addEventListener('click', ()=> {
+    window.location.href = '{{ url_for("add") }}'
+})

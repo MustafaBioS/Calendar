@@ -40,6 +40,7 @@ html, body {
     cursor: pointer;
     user-select: none;
     transition: all 0.3s ease;
+    z-index: 60;
 }
 
 .prev:hover, .next:hover {
@@ -246,6 +247,7 @@ html, body {
     box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.7);
     transition: all 0.3s ease;
     color: white;
+    border-radius: 25px;
 }
 
 .rightPart.open {
@@ -574,4 +576,27 @@ html, body {
     position: absolute;
     background-color: black;
     opacity: 0.3;
+}
+
+.createEvent {
+    height: 40px;
+    width: 33%;
+    border-radius: 12px;
+    font-size: 20px;
+    outline: none;
+    border: 1px solid black;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.createEvent:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    transform: translateY(-6px);
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
 }
