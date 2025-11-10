@@ -3,7 +3,7 @@ from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user
+from flask_login import LoginManager, UserMixin, current_user, login_required, login_user, logout_user
 from dotenv import load_dotenv
 import os
 
@@ -54,17 +54,28 @@ def load_user(user_id):
     return Users.query.get(int(user_id))
 
 @app.route("/calendar/<public_id>", methods=['GET', 'POST'])
+@login_required
 def calendar(public_id):
     calendar = Calendar.query.filter_by(public_id=public_id).first_or_404()
     events = Event.query.filter_by(calendar_id=calendar.id).all()
     return render_template("calendar.html", calendar=calendar, events=events)
 
-@app.route('/add/event', methods=['GET', 'POST'])
-def add():
+@app.route('/calendar/<public_id>/add', methods=['GET', 'POST'])
+@login_required
+def add(public_id):
     if request.method == 'GET':
-        return render_template('create.html')
+        return render_template('create.html', public_id=public_id)
     if request.method == 'POST':
-        pass
+        calendar = Calendar.query.filter_by(public_id=public_id).first_or_404()
+        title = request.form.get('name')
+        description = request.form.get('desc')
+        date = request.form.get('date')
+    
+        event = Event(calendar_id=calendar.id, title=title, description=description, date=date)
+        db.session.add(event)
+        db.session.commit()
+        flash("Event Added Successfully", 'success')
+        return redirect(url_for('calendar', public_id=public_id))
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -122,6 +133,7 @@ def login():
                 return redirect(url_for("login"))
             
 @app.route("/logout")
+@login_required
 def logout():
     if current_user.is_authenticated:
         logout_user()
@@ -131,6 +143,7 @@ def logout():
         return redirect(url_for('home'))
 
 @app.route('/delete')
+@login_required
 def delete():
     user = Users.query.filter_by(username=current_user.username).first()
     if user:

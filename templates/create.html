@@ -4,8 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Event</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='add.css') }}">
+    <link rel="icon" href="../static/ava13c3ac53812cde1b88.png">
 </head>
 <body>
-    
+    <div class="all">
+        <div class="bg">
+            <h1 class="title">Add Event</h1>
+            <form class="eventForm" action="{{ url_for('add', public_id=public_id) }}" method="post">
+                <label class="lb">Event Title</label>
+                <input type="text" class="name inp" name="name" maxlength="26" required>
+                <label class="lb">Event Description</label>
+                <input type="text" class="desc inp" name="desc" maxlength="64" required>
+                <label class="lb">Event Date</label>
+                <input type="date" class="date inp" name="date" required>
+                <input type="submit" class="submit" value="Add Event">
+            </form>
+        </div>
+    </div>
 </body>
 </html>

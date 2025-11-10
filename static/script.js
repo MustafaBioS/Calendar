@@ -131,7 +131,3 @@ document.addEventListener('click', (e)=> {
         rightOn = false;
     }
 })
-
-addEvent.addEventListener('click', ()=> {
-    window.location.href = '{{ url_for("add") }}'
-})

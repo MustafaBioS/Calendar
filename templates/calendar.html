@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar</title>
+    <title>Calendar - {{ calendar.name }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
     <link rel="icon" href="../static/ava13c3ac53812cde1b88.png">
 </head>
@@ -23,7 +23,7 @@
     <div class="all">
         <div class="calendar">
 
-            <h1 class="title caltitle">Calendar</h1>
+            <h1 class="title caltitle">{{ calendar.name }}</h1>
 
             <div class="month">
                 <div class="leftbtn">
@@ -54,12 +54,24 @@
         <div class="rightPart">
             <h1 class="title rev">Events</h1>
             <div class="centered">
-                <button class="createEvent">Add Event</button>
+                <button class="createEvent" data-publicid="{{ calendar.public_id }}">Add Event</button>
             </div>
 
             <div class="eventsCon">
-                <p class="events">No Events</p>
+                {% if events %}
+                    {% for event in events %}
+                        <strong>{{ event.title }}</strong> - {{ event.date }}<br>{{ event.description }}
+                    {% else %}
+                        <p class="events">No Events</p>
+                    {% endfor %}
+                {% endif%}
             </div>
+            <div class="centered">
+                <p>Shareable link: 
+                    <a href="{{ request.url }}" class="link">{{ request.url }}</a>
+                </p>
+            </div>
+
 
         </div>
     </div>
@@ -67,5 +79,14 @@
 
 
     <script src="../static/script.js"></script>
+
+    <script>
+        const add = document.querySelector('.createEvent');
+
+        add.addEventListener('click', ()=> {
+            const public_id = add.dataset.publicid;
+            window.location.href = `/calendar/${public_id}/add`;
+        })
+    </script>
 </body>
 </html>
