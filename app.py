@@ -80,6 +80,7 @@ def add(public_id):
         return redirect(url_for('calendar', public_id=public_id))
 
 @app.route("/", methods=['GET', 'POST'])
+@login_required
 def home():
     if request.method == 'GET':
         calendars = Calendar.query.filter_by(user_id=current_user.id).all()
@@ -159,4 +160,4 @@ def delete():
 # Run
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

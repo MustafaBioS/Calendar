@@ -446,10 +446,12 @@ html, body {
 
 .pos {
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
     height: 55%;
     width: 100%;
+    gap: 20px;
 }
 
 .cals {
@@ -651,4 +653,30 @@ html, body {
     background-color: black;
     color: white;
     transform: translateY(-6px);
+}
+
+.flash {
+    font-size: 20px;
+    padding: 15px;
+    position: absolute;
+    border-radius: 20px;
+}  
+
+.cont {
+    position: absolute;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    height: 100vh;
+    width: 100vw;
+}
+
+.success {
+    background-color: green;
+    color: white;
+}
+
+.fail {
+    background-color: red;
+    color: white;
 }
