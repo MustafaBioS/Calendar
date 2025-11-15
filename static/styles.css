@@ -660,6 +660,8 @@ html, body {
     padding: 15px;
     position: absolute;
     border-radius: 20px;
+    user-select: none;
+    pointer-events: none;
 }  
 
 .cont {
@@ -669,6 +671,8 @@ html, body {
     justify-content: flex-end;
     height: 100vh;
     width: 100vw;
+    user-select: none;
+    pointer-events: none;
 }
 
 .success {

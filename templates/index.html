@@ -98,11 +98,13 @@
         const delBox = document.querySelector('.deleteModal');
         const savedcal = document.querySelector('.savedcal');
 
+        if (savedcal) {
+            savedcal.addEventListener('click', ()=> {
+                const public_id = savedcal.dataset.publicid;
+                window.location.href = `/calendar/${public_id}`;
+            })
+        }
 
-        savedcal.addEventListener('click', ()=> {
-            const public_id = savedcal.dataset.publicid;
-            window.location.href = `/calendar/${public_id}`;
-        })
 
         cancel.addEventListener('click', ()=> {
             delModal.style.display = 'none';
